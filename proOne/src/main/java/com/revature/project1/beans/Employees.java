@@ -8,14 +8,13 @@ public class Employees {
 	private String lastName;
 	private String email;
 	//private pro_pic
-	private String reportsTo;
+	private int reportsTo;
 	
 	public Employees() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	public Employees(int employeeId, String title, String firstName, String lastName, String email, String reportsTo) {
+	public Employees(int employeeId, String title, String firstName, String lastName, String email, int reportsTo) {
 		super();
 		this.employeeId = employeeId;
 		this.title = title;
@@ -65,11 +64,11 @@ public class Employees {
 		this.email = email;
 	}
 
-	public String getReportsTo() {
+	public int getReportsTo() {
 		return reportsTo;
 	}
 
-	public void setReportsTo(String reportsTo) {
+	public void setReportsTo(int reportsTo) {
 		this.reportsTo = reportsTo;
 	}
 

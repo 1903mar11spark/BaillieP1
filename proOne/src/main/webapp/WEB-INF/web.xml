@@ -1,14 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" version="4.0">
-  <display-name>proOne</display-name>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
   <servlet>
-  	<display-name>Login</display-name>
-    <servlet-name>LoginServlet</servlet-name>
-    <servlet-class>com.revature.project1.LoginServlet</servlet-class>
+  	<description></description>
+  	<display-name>proOne</display-name>
+    <servlet-name>Login</servlet-name>
+    <servlet-class>com.revature.project1.servlets.LoginServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>LoginServlet</servlet-name>
+    <servlet-name>Login</servlet-name>
     <url-pattern>/Login</url-pattern>
   </servlet-mapping>
-
+<!--    <servlet>
+  	<description></description>
+    <servlet-name>HomePage</servlet-name>
+    <servlet-class>com.revature.project1.servlets.E_Home</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>E_Home</servlet-name>
+    <url-pattern>/EmployeeHome</url-pattern>
+  </servlet-mapping> -->
   </web-app>
+  
+
+  

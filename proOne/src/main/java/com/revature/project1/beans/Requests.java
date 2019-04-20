@@ -2,7 +2,7 @@ package com.revature.project1.beans;
 
 import java.util.Date;
 
-import javax.sql.rowset.serial.SerialBlob;
+
 
 public class Requests {
 	
@@ -13,11 +13,17 @@ public class Requests {
 	private String rqType;
 	private double rqAmt;
 	private String status;
-	private SerialBlob image;
+	private String image;
+	//private SerialBlob image; need to also import the blob in the case of it's use
 	
 	public Requests() {
 		super();
 		
+	}
+	
+	public Requests(int requestId) {
+		super();
+		this.requestId = requestId;
 	}
 
 	public int getRequestId() {
@@ -94,11 +100,11 @@ public class Requests {
 				+ ", rqDate=" + rqDate + ", rqType=" + rqType + ", rqAmt=" + rqAmt + ", status=" + status + "]";
 	}
 
-	public SerialBlob getImage() {
+	public String getImage() {
 		return image;
 	}
 
-	public void setImage(SerialBlob image) {
+	public void setImage(String image) {
 		this.image = image;
 	}
 	
