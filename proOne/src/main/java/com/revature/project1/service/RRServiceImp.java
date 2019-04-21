@@ -25,9 +25,9 @@ public class RRServiceImp implements RRService{
 	}
 
 	@Override
-	public List<Requests> getEmpReqFromMan() {
+	public List<Requests> getEmpReqFromMan(int employeeId) {
 
-		return erd.getEmpReqFromMan();
+		return erd.getEmpReqFromMan(employeeId);
 	}
 
 	@Override

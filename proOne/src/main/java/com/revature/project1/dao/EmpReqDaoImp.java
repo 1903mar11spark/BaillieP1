@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.revature.project1.beans.Employees;
+import com.revature.project1.beans.Login;
 import com.revature.project1.beans.Requests;
 import com.revature.project1.util.ConnectionsUtil;
 
@@ -49,7 +50,9 @@ public class EmpReqDaoImp implements EmpReqDao {
 				String type = rs.getString("RQ_TYPE");
 				double amt = rs.getDouble("RQ_AMT");
 				String stat = rs.getString("REQUEST_STATUS");
-				a.add(new Requests(rq, em, man, date, type, amt, stat));
+				String image = rs.getString("RQ_IMAGE");
+				String info = rs.getString("INFO");
+				a.add(new Requests(rq, em, man, date, type, amt, stat, image, info));
 			}
 		} catch (SQLException | IOException e) {
 			e.printStackTrace();
@@ -68,12 +71,14 @@ public class EmpReqDaoImp implements EmpReqDao {
 			while (rs.next()) {
 				int rq = rs.getInt("REQUEST_ID");
 				int em = rs.getInt("EMPLOYEE_ID");
+				int man = rs.getInt("MANAGEDBY");
 				Date date = rs.getDate("RQ_DATE");
 				String type = rs.getString("RQ_TYPE");
 				double amt = rs.getDouble("RQ_AMT");
 				String stat = rs.getString("REQUEST_STATUS");
+				String image = rs.getString("RQ_IMAGE");
 				String info = rs.getString("INFO");
-				a.add(new Requests(rq, em, date, type, amt, stat, info));
+				a.add(new Requests(rq, em, man, date, type, amt, stat,image, info));
 			}
 		} catch (SQLException | IOException e) {
 			e.printStackTrace();
@@ -143,33 +148,56 @@ public class EmpReqDaoImp implements EmpReqDao {
 
 	
 	
-	@Override
+	@Override //#2 
 	public List<Requests> getPendingRequests(int employeeId) {
-		List<Requests> a = new ArrayList<>();
+		List<Requests> a = new ArrayList<Requests>();
 		try (Connection con = ConnectionsUtil.getConnectionFromFile()) {
-			String sql = "SELECT RQ_IMAGE FROM REQUESTS";
+			String sql = "SELECT REQUEST_ID, EMPLOYEE_ID, RQ_DATE, RQ_TYPE, RQ_AMT, "
+					+ "REQUEST_STATUS, RQ_IMAGE, INFO FROM REQUESTS WHERE EMPLOYEE_ID= ? "
+					+ "AND REQUEST_STATUS='PENDING'";
 			PreparedStatement pstmt = con.prepareStatement(sql);
-			ResultSet rs = pstmt.executeQuery(sql);
+			pstmt.setInt(1, employeeId);
+			pstmt.executeUpdate();
+			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
+				int rq = rs.getInt("REQUEST_ID");
+				int em = rs.getInt("EMPLOYEE_ID");
+				Date date = rs.getDate("RQ_DATE");
+				String type = rs.getString("RQ_TYPE");
+				double amt = rs.getDouble("RQ_AMT");
+				String stat = rs.getString("REQUEST_STATUS");
 				String img = rs.getString("RQ_IMAGE");
-				a.add(new Requests(img));
+				String info = rs.getString("INFO");
+				a.add(new Requests(rq, em, date, type,  amt, img, stat, info));
 			}
 		} catch (SQLException | IOException e) {
 			e.printStackTrace();
 		} 
 		return a;
 	}
+	
 
 	@Override
 	public List<Requests> getResolvedRequests(int employeeId) {
-		List<Requests> a = new ArrayList<>();
+		List<Requests> a = new ArrayList<Requests>();
 		try (Connection con = ConnectionsUtil.getConnectionFromFile()) {
-			String sql = "SELECT RQ_IMAGE FROM REQUESTS";
+			String sql = "SELECT REQUEST_ID, EMPLOYEE_ID, RQ_DATE, RQ_TYPE, RQ_AMT,"
+					+ " REQUEST_STATUS, RQ_IMAGE, INFO FROM REQUESTS WHERE EMPLOYEE_ID= ? "
+					+ "AND REQUEST_STATUS='RESOLVED'";
 			PreparedStatement pstmt = con.prepareStatement(sql);
-			ResultSet rs = pstmt.executeQuery(sql);
+			pstmt.setInt(1, employeeId);
+			pstmt.executeUpdate();
+			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
+				int rq = rs.getInt("REQUEST_ID");
+				int em = rs.getInt("EMPLOYEE_ID");
+				Date date = rs.getDate("RQ_DATE");
+				String type = rs.getString("RQ_TYPE");
+				double amt = rs.getDouble("RQ_AMT");
+				String stat = rs.getString("REQUEST_STATUS");
 				String img = rs.getString("RQ_IMAGE");
-				a.add(new Requests(img));
+				String info = rs.getString("INFO");
+				a.add(new Requests(rq, em, date, type,  amt, img, stat, info));
 			}
 		} catch (SQLException | IOException e) {
 			e.printStackTrace();
@@ -177,34 +205,82 @@ public class EmpReqDaoImp implements EmpReqDao {
 		return a;
 	}
 
-	@Override
-	public void getEmployeeInfo(Employees emp) {
-		// TODO Auto-generated method stub
+	@Override 
+	public void getEmployeeInfo(int employeeId) {
+		Employees emp = new Employees();
+		try (Connection con = ConnectionsUtil.getConnectionFromFile()) {
+			String sql = "SELECT TITLE, FIRSTNAME, LASTNAME, EMAIL FROM EMPLOYEES WHERE EMPLOYEE_ID=?";
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, employeeId);
+			pstmt.executeUpdate();
+			System.out.println("Successful for retreving info");
+			while (rs.next()) {
+				String type = rs.getString("RQ_TYPE");
+				String stat = rs.getString("REQUEST_STATUS");
+				String img = rs.getString("RQ_IMAGE");
+				String info = rs.getString("INFO");
+				emp.add(title, firstname, lastname, email);
+			}
+			
+		}
+		catch (SQLException | IOException e) {
+			e.printStackTrace();	
+		}
 		
+	}
+
+	
+
+	@Override
+	public void resolveRequest(int requestId) {
+		try (Connection con = ConnectionsUtil.getConnectionFromFile()) {
+			String sql = "UPDATE REQUESTS SET REQUEST_STATUS = 'RESOLVED' WHERE REQUEST_ID=?";	
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, requestId);
+			pstmt.executeUpdate();
+			System.out.println("Successful for requests");
+		}
+		catch (SQLException | IOException e) {
+			e.printStackTrace();	
+		}
+		
+	}
+
+	@Override
+	public boolean getLogin(String username, String password) {
+		PreparedStatement pstmt = null;
+		boolean toLogin = false;
+		try (Connection con = ConnectionsUtil.getConnectionFromFile()) {
+			String sql = "SELECT USERNAME, UPASSWORD FROM LOGIN WHERE USERNAME=? AND UPASSWORD=?";
+			pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, username);
+				pstmt.setString(2, password);
+				ResultSet rs = pstmt.executeQuery();
+				if(rs.next()) {
+					toLogin = true;
+					return toLogin;
+				}else {
+					System.out.println("Doesn't match bruv");
+					return toLogin;
+			} 
+		}catch (SQLException | IOException e) {
+			e.printStackTrace();
+		} 
+		return toLogin;
+		
+	}
+	
+
+	@Override //AFTER MVP
+	public boolean registerEmployee(Employees emp) {
+		
+		return false;
 	}
 
 	@Override
 	public void updateEmployeeInfo(Employees emp) {
 		// TODO Auto-generated method stub
 		
-	}
-
-	@Override
-	public void resolveRequest(int requestId) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public Employees getLogin(String username, String password) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean registerEmployee(Employees emp) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 	

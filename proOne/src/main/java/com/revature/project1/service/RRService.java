@@ -11,10 +11,10 @@ public interface RRService {
 
 	public List<Employees> getAllEmpMan();
 
-	public List<Requests> getAllRequests(); 
-	
-	public List<Requests> getEmpReqFromMan();
+	public List<Requests> getAllRequests();
 	
 	public boolean registerEmployee(Employees emp);
+
+	public List<Requests> getEmpReqFromMan(int employeeId);
 	
 }

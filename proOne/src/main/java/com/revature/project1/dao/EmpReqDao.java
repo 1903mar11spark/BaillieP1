@@ -3,6 +3,7 @@ package com.revature.project1.dao;
 import java.util.List;
 
 import com.revature.project1.beans.Employees;
+import com.revature.project1.beans.Login;
 import com.revature.project1.beans.Requests;
 
 public interface EmpReqDao {
@@ -20,17 +21,17 @@ public interface EmpReqDao {
 	//done
 	public boolean createRequest(int employeeId, String type, double amount, String info); //1 NEED TO ADD IMAGE
 	//done
-	public List<Requests> getPendingRequests(int employeeId); //2
+	public List<Requests> getPendingRequests(int employeeId); //2 EMPLOYEE PENDING
 	
 	public List<Requests> getResolvedRequests(int employeeId); //3
 	
-	public void getEmployeeInfo(Employees emp); //4
+	public void getEmployeeInfo(int employeeId); //4
 	
 	public void updateEmployeeInfo(Employees emp); //5 employee update names/email username = solid 
 	
 	public void resolveRequest(int requestId); //6 Manager can resolve requests
 	
-	public Employees getLogin(String username, String password); //13 get login
+	public boolean getLogin(String username, String password); //13 get login
 	
 	public boolean registerEmployee(Employees emp); //12 register employee -- EXTRA
 
