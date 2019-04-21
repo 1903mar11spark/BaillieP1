@@ -14,6 +14,12 @@ public class Employees {
 		super();
 	}
 
+	public Employees(int employeeId, String firstName) {
+		super();
+		this.employeeId = employeeId;
+		this.firstName = firstName;
+	}
+	
 	public Employees(int employeeId, String title, String firstName, String lastName, String email, int reportsTo) {
 		super();
 		this.employeeId = employeeId;

@@ -12,22 +12,22 @@ import java.util.Properties;
 		
 
 public class ConnectionsUtil {
-	public static Connection getConnection() throws SQLException {
-		String url = "";
-		String username = "";
-		String password = "";
-		try {
-			   Class.forName("oracle.jdbc.driver.OracleDriver");
-			}
-			catch(ClassNotFoundException ex) {
-			   System.out.println("Error: unable to load driver class!");
-			}
-		return DriverManager.getConnection(url, username, password);
-	}
+//	public static Connection getConnection() throws SQLException {
+//		String url = "";
+//		String username = "";
+//		String password = "";
+//		try {
+//			   Class.forName("oracle.jdbc.driver.OracleDriver");
+//			}
+//			catch(ClassNotFoundException ex) {
+//			   System.out.println("Error: unable to load driver class!");
+//			}
+//		return DriverManager.getConnection(url, username, password);
+//	}
 
 	public static Connection getConnectionFromFile() throws SQLException, IOException {
 		Properties prop = new Properties();
-		InputStream in = ConnectionsUtil.class.getClassLoader().getResourceAsStream("connection.properties");
+		InputStream in = ConnectionsUtil.class.getClassLoader().getResourceAsStream("connections.properties");
 		prop.load(in);
 		try {
 			   Class.forName("oracle.jdbc.driver.OracleDriver");

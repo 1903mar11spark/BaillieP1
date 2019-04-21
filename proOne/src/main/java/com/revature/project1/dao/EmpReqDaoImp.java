@@ -1,8 +1,10 @@
 package com.revature.project1.dao;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,34 +16,38 @@ public class EmpReqDaoImp implements EmpReqDao {
 
 	@Override
 	public List<Employees> getAllEmpMan() {
-		List<Employees> users = new ArrayList<>();
-		try (Connection con = ConnectionsUtil.getConnection()) {
-			String sql = "SELECT E1.FIRSTNAME, E2.FIRSTNAME FROM EMPLOYEES E1 INNER JOIN EMPLOYEES E2 ON E2.EMPLOYEE_ID = E1.REPORTSTO;";
+		List<Employees> a = new ArrayList<>();
+		try (Connection con = ConnectionsUtil.getConnectionFromFile()) {
+			String sql = "SELECT FIRSTNAME, REPORTSTO FROM EMPLOYEES";
 			PreparedStatement pstmt = con.prepareStatement(sql);
-			ResultSet rs = pstmt.executeQuery();
+			ResultSet rs = pstmt.executeQuery(sql);
 			while (rs.next()) {
-				int userId = rs.getInt("USER_ID");
-				String username = rs.getString("USERNAME");
-				String password = rs.getString("USERPASSWORD");
-				Employees bankUser = new Employees(userId, username, password);
-				users.add(bankUser);
+				int man = rs.getInt("REPORTSTO");
+				String emp = rs.getString("FIRSTNAME");
+				a.add(new Employees(man, emp));
 			}
-
-		} catch (SQLException e) {
+		} catch (SQLException | IOException e) {
 			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return users;
-	
+		} 
+		return a;
 	}
-
+	
 	@Override
 	public List<Requests> getAllRequests() {
-		
-		
-		
-		return null;
+		List<Employees> a = new ArrayList<>();
+		try (Connection con = ConnectionsUtil.getConnectionFromFile()) {
+			String sql = "SELECT FIRSTNAME, REPORTSTO FROM EMPLOYEES";
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery(sql);
+			while (rs.next()) {
+				int man = rs.getInt("REPORTSTO");
+				String emp = rs.getString("FIRSTNAME");
+				a.add(new Employees(man, emp));
+			}
+		} catch (SQLException | IOException e) {
+			e.printStackTrace();
+		} 
+		return a;
 	}
 
 	@Override
