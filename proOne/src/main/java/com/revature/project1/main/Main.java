@@ -2,9 +2,8 @@ package com.revature.project1.main;
 
 
 
-import java.util.List;
 
-import com.revature.project1.beans.Employees;
+
 import com.revature.project1.dao.EmpReqDaoImp;
 
 public class Main {
@@ -13,11 +12,7 @@ public class Main {
 		
 		EmpReqDaoImp erd = new EmpReqDaoImp();
 		
-		List<Employees> bearList = erd.getAllEmpMan();
-
+		System.out.println(erd.createRequest(11,"TRAVEL EXPENSE", 434.00, "FLIGHT TO ZANZIBAR"));
 		
-		for(Employees b : bearList) {
-			System.out.println(b);
-		}
 	}
 }

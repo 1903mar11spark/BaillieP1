@@ -14,6 +14,7 @@ public class Requests {
 	private double rqAmt;
 	private String status;
 	private String image;
+	private String info;
 	//private SerialBlob image; need to also import the blob in the case of it's use
 	
 	public Requests() {
@@ -94,6 +95,33 @@ public class Requests {
 		this.status = status;
 	}
 
+	public Requests(int rq, int em, Date date, String type, double amt, String stat, String info) {
+		super();
+		this.requestId = rq;
+		this.employeeId = em;
+		this.rqDate = date;
+		this.rqType = type;
+		this.rqAmt = amt;
+		this.status = stat;
+		this.info = info;
+	}
+	
+	
+	
+	public Requests(int em, String type, double amt, String info) {
+		super();
+		this.employeeId = em;
+		this.rqType = type;
+		this.rqAmt = amt;
+		this.info = info;
+	}
+
+	public Requests(String img) {
+		super();
+		this.image = img;
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public String toString() {
 		return "Requests [requestId=" + requestId + ", employeeId=" + employeeId + ", managedBy=" + managedBy
@@ -106,6 +134,14 @@ public class Requests {
 
 	public void setImage(String image) {
 		this.image = image;
+	}
+
+	public String getInfo() {
+		return info;
+	}
+
+	public void setInfo(String info) {
+		this.info = info;
 	}
 	
 	

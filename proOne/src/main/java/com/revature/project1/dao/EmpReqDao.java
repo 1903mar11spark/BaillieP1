@@ -9,17 +9,17 @@ public interface EmpReqDao {
 	//13 methods
 	
 	public List<Employees> getAllEmpMan(); //10 get all employees and their managers
-	
+	//done
 	public List<Requests> getAllRequests(); //9 requests from employees and see who resolved it 
-	
-	public List<Requests> getEmpReqFromMan();//7 view all requests form employees they manage 
-	
-	public List<Requests> getEmpReq(); //11 view a singular rq form a single employee that they manage
-	
+	//done
+	public List<Requests> getEmpReqFromMan(int employeeId);//7 view all requests from employees they manage 
+	//done
+	public List<Requests> getEmpReq(int empId, int manId); //11 view a singular rq form a single employee that they manage
+	//done
 	public List<Requests> getReciepts(); //8 view images of receipts form all requests
-	
-	public boolean createRequest(int employeeId, int managedId, String type, double amount); //1 NEED TO ADD IMAGE
-	
+	//done
+	public boolean createRequest(int employeeId, String type, double amount, String info); //1 NEED TO ADD IMAGE
+	//done
 	public List<Requests> getPendingRequests(int employeeId); //2
 	
 	public List<Requests> getResolvedRequests(int employeeId); //3
@@ -33,6 +33,7 @@ public interface EmpReqDao {
 	public Employees getLogin(String username, String password); //13 get login
 	
 	public boolean registerEmployee(Employees emp); //12 register employee -- EXTRA
+
 	
 
 }

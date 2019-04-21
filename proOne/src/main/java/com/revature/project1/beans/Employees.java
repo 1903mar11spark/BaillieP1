@@ -9,9 +9,16 @@ public class Employees {
 	private String email;
 	//private pro_pic
 	private int reportsTo;
+	private String manager;
 	
 	public Employees() {
 		super();
+	}
+	
+	public Employees(String firstName, String manager) {
+		super();
+		this.firstName = firstName;
+		this.setManager(manager);
 	}
 
 	public Employees(int employeeId, String firstName) {
@@ -88,10 +95,12 @@ public class Employees {
 		this.reportsTo = reportsTo;
 	}
 
+	
+	
 	@Override
 	public String toString() {
 		return "Employees [employeeId=" + employeeId + ", title=" + title + ", firstName=" + firstName + ", lastName="
-				+ lastName + ", email=" + email + ", reportsTo=" + reportsTo + "]";
+				+ lastName + ", email=" + email + ", reportsTo=" + reportsTo + ", manager=" + manager + "]";
 	}
 
 	//maybe
@@ -133,6 +142,14 @@ public class Employees {
 		} else if (!lastName.equals(other.lastName))
 			return false;
 		return true;
+	}
+
+	public String getManager() {
+		return manager;
+	}
+
+	public void setManager(String manager) {
+		this.manager = manager;
 	}
 
 }
