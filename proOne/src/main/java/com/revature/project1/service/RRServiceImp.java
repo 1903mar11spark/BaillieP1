@@ -10,32 +10,30 @@ import com.revature.project1.dao.EmpReqDaoImp;
 
 public class RRServiceImp implements RRService{
 
-	private EmpReqDao erd = new EmpReqDaoImp();
-	
 	@Override
 	public List<Employees> getAllEmpMan() {
-
-		return erd.getAllEmpMan();
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public List<Requests> getAllRequests() {
-		
-		return erd.getAllRequests();
-	}
-
-	@Override
-	public List<Requests> getEmpReqFromMan(int employeeId) {
-
-		return erd.getEmpReqFromMan(employeeId);
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public boolean registerEmployee(Employees emp) {
-		
-		return erd.registerEmployee(emp);
+		// TODO Auto-generated method stub
+		return false;
 	}
-	
+
+	@Override
+	public List<Requests> getEmpReqFromMan(int employeeId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 
 }

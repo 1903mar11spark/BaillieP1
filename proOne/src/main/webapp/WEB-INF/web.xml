@@ -19,7 +19,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>E_HomeServlet</servlet-name>
-    <url-pattern>/EmployeeHome</url-pattern>
+    <url-pattern>/employeehome</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>

@@ -1,6 +1,7 @@
 package com.revature.project1.servlets;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 //import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -38,29 +39,40 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// check whether session exists, and create one if not
-		// overloaded version takes a boolean parameter, if false returns null when there is none
 		HttpSession session = request.getSession();
-		//grab credentials from request
-		Login creds = new Login(request.getParameter("username"), request.getParameter("password"));
-		//attempt to authenticate user
-		Employees u = as.isValidUser(creds);
-		if (u != null) {
-			//set user information as session attributes (not request attributes!)
-			//session.setAttribute("userId", u.getEmployeeId());
-			session.setAttribute("firstname", u.getFirstName());
-			session.setAttribute("lastname", u.getLastName());
-			session.setAttribute("email", u.getEmail());
-			session.setAttribute("problem", null);
-			//redirect user to profile page if authenticated
-			response.sendRedirect("EmployeeHome"); //this has to be the url Mapping
-		} else {
-			System.out.println("success");
-			session.setAttribute("problem", "invalid credentials");
-			//otherwise redirect to login page
-			System.out.println();
-			response.sendRedirect("Login"); // this has to be the url mapping but also make sure
+		Login log = new Login(request.getParameter("username"), request.getParameter("password"));
+		
+		String title =as.isValidUser(log);
+		String e = as.getEmployeeId(log);
+		int here = Integer.parseInt(e);
+		System.out.println(here);
+		
+		System.out.println(title+" " +"title spot");
+		Employees emp = new Employees(here);
+
+		if ( title != "" ) {
+			if(title.equals("TEMP")) {
+				System.out.println("HERE I AM");
+				System.out.println(title);
+				session.setAttribute("username", log.getUsername());
+				session.setAttribute("firstname", emp.getFirstName());
+				session.setAttribute("lastname", emp.getLastName());
+				session.setAttribute("title", emp.getTitle());
+				session.setAttribute("email", emp.getEmail());
+				response.sendRedirect("employeehome");//url pattern
+			}else {
+				System.out.println("This was suppose to be for managers");
+				session.setAttribute("username", log.getUsername());
+				session.setAttribute("firstname", emp.getFirstName());
+				session.setAttribute("lastname", emp.getLastName());
+				session.setAttribute("title", emp.getTitle());
+				session.setAttribute("email", emp.getEmail());
+				response.sendRedirect("ManagerHome");
+			}
+		}else {
+			response.sendRedirect("Login");
 		}
+
 	}
 		
 }

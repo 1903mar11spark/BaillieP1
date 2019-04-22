@@ -206,30 +206,55 @@ public class EmpReqDaoImp implements EmpReqDao {
 	}
 
 	@Override 
-	public void getEmployeeInfo(int employeeId) {
+	public Employees getEmployeeInfo(int employeeId) {
 		Employees emp = new Employees();
 		try (Connection con = ConnectionsUtil.getConnectionFromFile()) {
 			String sql = "SELECT TITLE, FIRSTNAME, LASTNAME, EMAIL FROM EMPLOYEES WHERE EMPLOYEE_ID=?";
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, employeeId);
 			pstmt.executeUpdate();
+			ResultSet rs = pstmt.executeQuery();
 			System.out.println("Successful for retreving info");
 			while (rs.next()) {
-				String type = rs.getString("RQ_TYPE");
-				String stat = rs.getString("REQUEST_STATUS");
-				String img = rs.getString("RQ_IMAGE");
-				String info = rs.getString("INFO");
-				emp.add(title, firstname, lastname, email);
+				String title = rs.getString("TITLE");
+				String firstName = rs.getString("FIRSTNAME");
+				String lastName = rs.getString("LASTNAME");
+				String email = rs.getString("EMAIL");
+				emp = new Employees(title, firstName, lastName, email);
 			}
 			
 		}
 		catch (SQLException | IOException e) {
 			e.printStackTrace();	
 		}
-		
+		return emp;
 	}
 
-	
+	@Override
+	public Employees updateEmployeeInfo(int employeeId) {
+		Employees emp = new Employees();
+		try (Connection con = ConnectionsUtil.getConnectionFromFile()) {
+			String sql = "UPDATE EMPLOYEES SET FIRSTNAME =?, LASTNAME=?, EMAIL=? VALUES   EMPLOYEES WHERE EMPLOYEE_ID=?";
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, employeeId);
+			pstmt.executeUpdate();
+			ResultSet rs = pstmt.executeQuery();
+			System.out.println("Successful for retreving info");
+			while (rs.next()) {
+				String title = rs.getString("TITLE");
+				String firstName = rs.getString("FIRSTNAME");
+				String lastName = rs.getString("LASTNAME");
+				String email = rs.getString("EMAIL");
+				emp = new Employees(title, firstName, lastName, email);
+			}
+			
+		}
+		catch (SQLException | IOException e) {
+			e.printStackTrace();	
+		}
+		return emp;
+		
+	}
 
 	@Override
 	public void resolveRequest(int requestId) {
@@ -277,11 +302,7 @@ public class EmpReqDaoImp implements EmpReqDao {
 		return false;
 	}
 
-	@Override
-	public void updateEmployeeInfo(Employees emp) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 	
 

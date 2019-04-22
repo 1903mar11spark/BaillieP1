@@ -27,6 +27,11 @@ public class Employees {
 		this.firstName = firstName;
 	}
 	
+	public Employees(int employeeId) {
+		super();
+		this.employeeId = employeeId;
+	}
+	
 	public Employees(int employeeId, String title, String firstName, String lastName, String email, int reportsTo) {
 		super();
 		this.employeeId = employeeId;
@@ -46,6 +51,14 @@ public class Employees {
 		this.email = email;
 	}
 	
+
+	public Employees(String title, String firstName, String lastName, String email) {
+		super();
+		this.title = title;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+	}
 
 	public int getEmployeeId() {
 		return employeeId;
