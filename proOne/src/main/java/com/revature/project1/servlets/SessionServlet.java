@@ -46,35 +46,7 @@ public class SessionServlet extends HttpServlet {
 		}
 	}
 		
-//	String req= request.getParameter("reqTyp");
-//	System.out.println(request.getParameter("reqTyp"));
-//
-//	;
-//	if ( session !=null && session.getAttribute("userId")!=null) {
-//		try {
-//			switch (req) {
-//			case("viewInfo"):{
-//				int userId = Integer.parseInt(session.getAttribute("userId").toString());
-//				int boss = Integer.parseInt(session.getAttribute("boss").toString());
-//				String fName = session.getAttribute("fName").toString();
-//				String lName = session.getAttribute("lName").toString();
-//				
-//				Employees e = new Employees (userId, boss, fName, lName);
-//				System.out.println(e);
-//				String resp = new ObjectMapper().writeValueAsString(e);
-//				
-//				response.getWriter().write(resp);
-//				
-//				System.out.println(resp);
-//				break;
-//			}default:response.getWriter().write("You broke this.");;
-//			}
-//		
-//
-//		}catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//	}
+
 	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse

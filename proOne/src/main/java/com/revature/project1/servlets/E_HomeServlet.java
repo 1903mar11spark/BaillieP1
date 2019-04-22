@@ -28,6 +28,7 @@ public class E_HomeServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
+		String req = request.getParameter("");
 		System.out.println(session.getAttribute("email").toString());
 		
 //		PrintWriter out = response.getWriter();
