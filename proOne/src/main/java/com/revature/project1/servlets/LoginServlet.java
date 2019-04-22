@@ -1,8 +1,9 @@
 package com.revature.project1.servlets;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
-
+import javax.servlet.RequestDispatcher;
 //import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -39,12 +40,13 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(true);
+		session.setMaxInactiveInterval(5*60); //ho ho getting it to go out in 5 min
 		Login login = new Login(request.getParameter("username"), request.getParameter("password"));
 		Employees emp = as.isValidUser(login);
+		if (emp != null) {
 		String title = emp.getTitle();
-		//System.out.println("so help me, you better work" + title );
-
+		//System.out.println("so help me, you better work" + title )
 		if (title != "" ) {
 			if(title.equals("TEMP")) {
 				//System.out.println("HERE I AM");
@@ -64,10 +66,21 @@ public class LoginServlet extends HttpServlet {
 				session.setAttribute("email", emp.getEmail());
 				response.sendRedirect("ManagerHome");
 			}
-		}else {
+		}else if(title == null){
 			response.sendRedirect("Login");
+//			PrintWriter out = response.getWriter();
+//			out.println("<font color=red>Either username or password is wrong.</font>");
+//			RequestDispatcher rd = getServletContext().getRequestDispatcher("login.html");
+//			PrintWriter out = response.getWriter();
+//			out.println("<font color=red>Either username or password is wrong.</font>");
+//			rd.include(request, response);
+			//mayhaps work  in the future who knows
 		}
-
+		}
 	}
-		
+	
+   
 }
+
+
+		

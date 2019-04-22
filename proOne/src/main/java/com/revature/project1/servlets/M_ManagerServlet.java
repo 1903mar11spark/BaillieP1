@@ -22,7 +22,6 @@ public class M_ManagerServlet extends HttpServlet {
      */
     public M_ManagerServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -36,13 +35,9 @@ public class M_ManagerServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		String str = session.getAttribute("firstname").toString();
-		System.out.println(str);
+		HttpSession session = request.getSession(false);
 		
-//		PrintWriter out = response.getWriter();
-//		out.print("Welcome " + str);
-	
+		
 	}
 
 }
