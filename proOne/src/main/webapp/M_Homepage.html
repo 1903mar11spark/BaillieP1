@@ -41,7 +41,7 @@
       </a>
   </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-    <span class="navbar-toggler-icon"></span>
+    <span class="navbar-toggler-icon navbar-left"></span>
   </button>
   <div class="collapse navbar-collapse" id="collapsibleNavbar">
     <ul class="navbar-nav">
@@ -52,12 +52,18 @@
         <a class="nav-link" href="#reim">Reimbursement Requests</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#req">New Requests</a>
-      </li>    
-      <li class="nav-item">
         <a class="nav-link" href="#pend">Pending Requests</a>
-      </li> 
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#req">New Requests</a>
+      </li>  
     </ul>
+          <ul class="nav navbar-nav navbar-right">
+          <li >
+            <button type="button" class="btn btn-primary my-2 my-sm-0" id="logout">Log Out</button>
+          </li>
+          </ul>
+    
   </div>  
 </nav>
 <!---all on the darn left side-->
@@ -74,15 +80,15 @@
           <div class="fakeimg">Fake Image</div>
         <div class="display font-weight-bold">
           <br>
-          <p>Title:</p><p id="title"></p>
+          <p>Title:</p><p name="title"></p>
           <br>
-          <p>Username:</p><p id="username"></p>
+          <p>Username:</p><p name="username"></p>
           <br>
-          <p>First Name</p><p id="firstname"></p>
+          <p>First Name</p><p name="firstname"></p>
           <br>
-          <p>Last Name:</p><p id="lastname"></p>
+          <p>Last Name:</p><p name="lastname"></p>
           <br>
-          <p>Email:</p><p id="email"></p>
+          <p>Email:</p><p name="email"></p>
           <br>
         <!---Modal-->
           <div class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -190,8 +196,7 @@
     <div class="col-sm-8">
         <div class="container d-flex">
             <div class="card text-center" style="width: 60rem;">
-              <a name=""
-            <div class="card-header" name="managment">
+            <div class="card-header" id="managment">
             <h2 >Management Views</h2>
             </div>
             <br>
@@ -290,7 +295,7 @@
           <!---PENDING ROUND 3-->
               <div class="container d-flex">
                   <div class="card text-center" style="width: 60rem;">
-                  <div class="card-header" name="pend">
+                  <div class="card-header" id="pend">
                   <h2>Pending Reimbursement</h2>
                   </div>
                   <br>
@@ -342,18 +347,18 @@
                <!--extra card-->
                <div class="container d-flex">
                   <div class="card text-center" style="width: 60rem;">
-                       <div class="card-header" name="req">
+                       <div class="card-header" id="req">
                        <h2>New Requests</h2>
                        </div>
                     <div class="card-body">
                        <form>
                          <div class="form-group">
-                           <label for="staticEmail" >Date</label>
-                           <input type="text" readonly class="form-control plaintext" id="staticEmail" value="Date">
+                           <label for="staticEmail">Date</label>
+                           <input type="text" readonly class="form-control plaintext" id="staticEmail" value="">
                          </div>
                        <div class="form-group">
                          <label for="exampleFormControlSelect1">Expense Type</label>
-                         <select class="form-control" id="exampleFormControlSelect1">
+                         <select class="form-control" id="exampleFormControlSelect1" name="type">
                            <option>Certification</option>
                            <option>Associate Travel Expense</option>
                            <option>Interview Expense</option>
@@ -363,8 +368,8 @@
                          </select>
                        </div>
                        <div class="form-group">
-                         <label for="exampleFormControlSelect2">Reimbursement</label>
-                         <input class="form-control" type="number" name="someid" min="0" step="0.01" />
+                         <label for="exampleFormControlSelect2">Reimbursement Amount</label>
+                         <input class="form-control" type="number" name="reimburse" min="0" step="0.01" />
                        </div>
                        <div class="form-group">
                          <label for="exampleFormControlTextarea1">Request Description</label>
@@ -372,7 +377,7 @@
                        </div>
                        <div class="form-group">
                            <label for="exampleFormControlFile1" >Attach Reciept</label>
-                           <input type="file" class="form-control" id="exampleFormControlFile1">
+                           <input type="file" class="form-control" id="exampleFormControlFile1" name="image">
                          </div>
                          <button type="submit" class="btn btn-primary text-center">Submit</button>
                      </form>

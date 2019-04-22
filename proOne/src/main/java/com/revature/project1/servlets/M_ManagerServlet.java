@@ -37,11 +37,11 @@ public class M_ManagerServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		String str = session.getAttribute("username").toString();
+		String str = session.getAttribute("firstname").toString();
 		System.out.println(str);
 		
-		PrintWriter out = response.getWriter();
-		out.print("Welcome " + str);
+//		PrintWriter out = response.getWriter();
+//		out.print("Welcome " + str);
 	
 	}
 

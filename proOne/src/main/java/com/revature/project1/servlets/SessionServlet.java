@@ -3,6 +3,7 @@ package com.revature.project1.servlets;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -10,8 +11,13 @@ import javax.servlet.http.HttpSession;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.project1.beans.Employees;
 
-public class SessionServlet {
+public class SessionServlet extends HttpServlet {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3616463879993422408L;
+
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -24,27 +30,52 @@ public class SessionServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//grab current session, if it exists
-		//response.setContentType("application/json");
 		HttpSession session = request.getSession(false);
-		if (session != null && session.getAttribute("username") != null) {
+		System.out.println(session.getAttribute("employeeId"));
+		if (session != null && session.getAttribute("employeeId") != null) {
 			try {
-				int userId = Integer.parseInt(session.getAttribute("employeeId").toString());
-				String username = session.getAttribute("username").toString();
-				String firstname = session.getAttribute("firstname").toString();
-				String lastname = session.getAttribute("lastname").toString();
-				String email = session.getAttribute("email").toString();
-				Employees u = new Employees(userId, username, firstname, lastname, email);
-				response.getWriter().write((new ObjectMapper()).writeValueAsString(u));
+				int empId = Integer.parseInt(session.getAttribute("employeeId").toString());
+				response.getWriter().write((new ObjectMapper()).writeValueAsString(empId));
 			} catch (Exception e) {
 				e.printStackTrace();
 				response.getWriter().write("{\"session\":null}");
+				System.out.println("Is this what you really wanted in life?");
 			}
 		} else {
 			response.getWriter().write("{\"session\":null}");
 		}
 	}
-
+		
+//	String req= request.getParameter("reqTyp");
+//	System.out.println(request.getParameter("reqTyp"));
+//
+//	;
+//	if ( session !=null && session.getAttribute("userId")!=null) {
+//		try {
+//			switch (req) {
+//			case("viewInfo"):{
+//				int userId = Integer.parseInt(session.getAttribute("userId").toString());
+//				int boss = Integer.parseInt(session.getAttribute("boss").toString());
+//				String fName = session.getAttribute("fName").toString();
+//				String lName = session.getAttribute("lName").toString();
+//				
+//				Employees e = new Employees (userId, boss, fName, lName);
+//				System.out.println(e);
+//				String resp = new ObjectMapper().writeValueAsString(e);
+//				
+//				response.getWriter().write(resp);
+//				
+//				System.out.println(resp);
+//				break;
+//			}default:response.getWriter().write("You broke this.");;
+//			}
+//		
+//
+//		}catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
+	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)

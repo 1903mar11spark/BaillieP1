@@ -28,11 +28,10 @@ public class E_HomeServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		String str = session.getAttribute("username").toString();
-		System.out.println(str);
+		System.out.println(session.getAttribute("email").toString());
 		
-		PrintWriter out = response.getWriter();
-		out.print("Welcome " + str);
+//		PrintWriter out = response.getWriter();
+
 		
 		}
 	

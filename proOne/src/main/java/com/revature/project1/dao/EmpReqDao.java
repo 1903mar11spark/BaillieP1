@@ -31,7 +31,7 @@ public interface EmpReqDao {
 	
 	public void resolveRequest(int requestId); //6 Manager can resolve requests
 	
-	public boolean getLogin(String username, String password); //13 get login
+	public int getLogin(String username, String password); //13 get login
 	
 	public boolean registerEmployee(Employees emp); //12 register employee -- EXTRA
 

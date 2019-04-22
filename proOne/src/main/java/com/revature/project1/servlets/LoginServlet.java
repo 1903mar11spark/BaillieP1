@@ -1,7 +1,7 @@
 package com.revature.project1.servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+
 
 //import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -27,7 +27,7 @@ public class LoginServlet extends HttpServlet {
 	public LoginServlet() {
         super();
     }
-
+	///COME BACK AND UTILIZE DOA METHODS
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -40,29 +40,24 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		Login log = new Login(request.getParameter("username"), request.getParameter("password"));
-		
-		String title =as.isValidUser(log);
-		String e = as.getEmployeeId(log);
-		int here = Integer.parseInt(e);
-		System.out.println(here);
-		
-		System.out.println(title+" " +"title spot");
-		Employees emp = new Employees(here);
+		Login login = new Login(request.getParameter("username"), request.getParameter("password"));
+		Employees emp = as.isValidUser(login);
+		String title = emp.getTitle();
+		//System.out.println("so help me, you better work" + title );
 
-		if ( title != "" ) {
+		if (title != "" ) {
 			if(title.equals("TEMP")) {
-				System.out.println("HERE I AM");
-				System.out.println(title);
-				session.setAttribute("username", log.getUsername());
+				//System.out.println("HERE I AM");
+				//System.out.println(title);
+				session.setAttribute("employeeId", emp.getEmployeeId());
 				session.setAttribute("firstname", emp.getFirstName());
 				session.setAttribute("lastname", emp.getLastName());
 				session.setAttribute("title", emp.getTitle());
 				session.setAttribute("email", emp.getEmail());
 				response.sendRedirect("employeehome");//url pattern
 			}else {
-				System.out.println("This was suppose to be for managers");
-				session.setAttribute("username", log.getUsername());
+				//System.out.println("This was suppose to be for managers");
+				session.setAttribute("employeeId", emp.getEmployeeId());
 				session.setAttribute("firstname", emp.getFirstName());
 				session.setAttribute("lastname", emp.getLastName());
 				session.setAttribute("title", emp.getTitle());

@@ -214,7 +214,7 @@ public class EmpReqDaoImp implements EmpReqDao {
 			pstmt.setInt(1, employeeId);
 			pstmt.executeUpdate();
 			ResultSet rs = pstmt.executeQuery();
-			System.out.println("Successful for retreving info");
+			System.out.println("Successful for retreving info from EmpReqDao");
 			while (rs.next()) {
 				String title = rs.getString("TITLE");
 				String firstName = rs.getString("FIRSTNAME");
@@ -272,26 +272,27 @@ public class EmpReqDaoImp implements EmpReqDao {
 	}
 
 	@Override
-	public boolean getLogin(String username, String password) {
+	public int getLogin(String username, String password) {
 		PreparedStatement pstmt = null;
-		boolean toLogin = false;
+	
 		try (Connection con = ConnectionsUtil.getConnectionFromFile()) {
-			String sql = "SELECT USERNAME, UPASSWORD FROM LOGIN WHERE USERNAME=? AND UPASSWORD=?";
+			String sql = "SELECT EMPLOYEE_ID FROM LOGIN WHERE USERNAME=? AND UPASSWORD=?";
 			pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, username);
 				pstmt.setString(2, password);
 				ResultSet rs = pstmt.executeQuery();
 				if(rs.next()) {
-					toLogin = true;
-					return toLogin;
+					int empId = rs.getInt("EMPLOYEE_ID");
+					System.out.println("Your emp from dao is" + empId);
+					return empId;
 				}else {
 					System.out.println("Doesn't match bruv");
-					return toLogin;
+					return 0;
 			} 
 		}catch (SQLException | IOException e) {
 			e.printStackTrace();
 		} 
-		return toLogin;
+		return 1; 
 		
 	}
 	
