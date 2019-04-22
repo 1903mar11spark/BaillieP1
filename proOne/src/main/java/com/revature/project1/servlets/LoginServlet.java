@@ -40,42 +40,42 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(true);
+		HttpSession session = request.getSession();
 		session.setMaxInactiveInterval(5*60); //ho ho getting it to go out in 5 min
+		System.out.println(session.getId());
 		Login login = new Login(request.getParameter("username"), request.getParameter("password"));
 		Employees emp = as.isValidUser(login);
+		
 		if (emp != null) {
-		String title = emp.getTitle();
-		//System.out.println("so help me, you better work" + title )
-		if (title != "" ) {
-			if(title.equals("TEMP")) {
-				//System.out.println("HERE I AM");
-				//System.out.println(title);
+				String title = emp.getTitle();
 				session.setAttribute("employeeId", emp.getEmployeeId());
 				session.setAttribute("firstname", emp.getFirstName());
 				session.setAttribute("lastname", emp.getLastName());
 				session.setAttribute("title", emp.getTitle());
-				session.setAttribute("email", emp.getEmail());
-				response.sendRedirect("employeehome");//url pattern
-			}else {
-				//System.out.println("This was suppose to be for managers");
-				session.setAttribute("employeeId", emp.getEmployeeId());
-				session.setAttribute("firstname", emp.getFirstName());
-				session.setAttribute("lastname", emp.getLastName());
-				session.setAttribute("title", emp.getTitle());
-				session.setAttribute("email", emp.getEmail());
-				response.sendRedirect("ManagerHome");
+				session.setAttribute("reportsTo", emp.getReportsTo());
+				//System.out.println("so help me, you better work" + title )
+			if (title != "" ) {
+				if(title.equals("TEMP")) {
+					//System.out.println(title);
+					session.setAttribute("employeeId", emp.getEmployeeId());
+					session.setAttribute("firstname", emp.getFirstName());
+					session.setAttribute("lastname", emp.getLastName());
+					session.setAttribute("title", emp.getTitle());
+					session.setAttribute("reportsTo", emp.getReportsTo());
+					response.sendRedirect("employeehome");//url pattern
+				}else {
+					//System.out.println("This was suppose to be for managers");
+					session.setAttribute("employeeId", emp.getEmployeeId());
+					session.setAttribute("firstname", emp.getFirstName());
+					session.setAttribute("lastname", emp.getLastName());
+					session.setAttribute("title", emp.getTitle());
+					session.setAttribute("reportsTo", emp.getReportsTo());
+					response.sendRedirect("ManagerHome");
+				}
+			}else if(title == null){
+				response.sendRedirect("Login");
+				//check file path
 			}
-		}else if(title == null){
-			response.sendRedirect("Login");
-//			PrintWriter out = response.getWriter();
-//			out.println("<font color=red>Either username or password is wrong.</font>");
-//			RequestDispatcher rd = getServletContext().getRequestDispatcher("login.html");
-//			PrintWriter out = response.getWriter();
-//			out.println("<font color=red>Either username or password is wrong.</font>");
-//			rd.include(request, response);
-			//mayhaps work  in the future who knows
-		}
 		}
 	}
 	

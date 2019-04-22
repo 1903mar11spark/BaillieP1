@@ -21,6 +21,14 @@ public class Employees {
 		this.setManager(manager);
 	}
 
+	public Employees(int employeeId, String firstName, String lastName, String title) {
+		super();
+		this.employeeId = employeeId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.title = title;
+	}
+	
 	public Employees(int employeeId, String firstName) {
 		super();
 		this.employeeId = employeeId;
@@ -32,17 +40,16 @@ public class Employees {
 		this.employeeId = employeeId;
 	}
 	
-	public Employees(int employeeId, String title, String firstName, String lastName, String email, int reportsTo) {
+	public Employees(int employeeId, String firstName, String lastName, String title, int reportsTo) {
 		super();
 		this.employeeId = employeeId;
 		this.title = title;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.email = email;
 		this.reportsTo = reportsTo;
 	}
 	
-	public Employees(int employeeId, String title, String firstName, String lastName, String email) {
+	public Employees(int employeeId, String firstName, String lastName, String title, String email) {
 		super();
 		this.employeeId = employeeId;
 		this.title = title;

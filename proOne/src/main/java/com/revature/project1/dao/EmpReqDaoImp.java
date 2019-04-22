@@ -209,18 +209,19 @@ public class EmpReqDaoImp implements EmpReqDao {
 	public Employees getEmployeeInfo(int employeeId) {
 		Employees emp = new Employees();
 		try (Connection con = ConnectionsUtil.getConnectionFromFile()) {
-			String sql = "SELECT TITLE, FIRSTNAME, LASTNAME, EMAIL FROM EMPLOYEES WHERE EMPLOYEE_ID=?";
+			String sql = "SELECT EMPLOYEE_ID, TITLE, FIRSTNAME, LASTNAME, REPORTSTO FROM EMPLOYEES WHERE EMPLOYEE_ID=?";
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, employeeId);
 			pstmt.executeUpdate();
 			ResultSet rs = pstmt.executeQuery();
 			System.out.println("Successful for retreving info from EmpReqDao");
 			while (rs.next()) {
+				int empId = rs.getInt("EMPLOYEE_ID");
 				String title = rs.getString("TITLE");
 				String firstName = rs.getString("FIRSTNAME");
 				String lastName = rs.getString("LASTNAME");
-				String email = rs.getString("EMAIL");
-				emp = new Employees(title, firstName, lastName, email);
+				int reportsTo = rs.getInt("REPORTSTO");
+				emp = new Employees(empId, firstName, lastName, title, reportsTo);
 			}
 			
 		}

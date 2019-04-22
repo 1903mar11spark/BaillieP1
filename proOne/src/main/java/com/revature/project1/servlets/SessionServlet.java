@@ -30,23 +30,28 @@ public class SessionServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(false);
-		System.out.println(session.getAttribute("employeeId"));
+		HttpSession session = request.getSession();
 		if (session != null && session.getAttribute("employeeId") != null) {
 			try {
-				int empId = Integer.parseInt(session.getAttribute("employeeId").toString());
-				response.getWriter().write((new ObjectMapper()).writeValueAsString(empId));
+				int userId = Integer.parseInt(session.getAttribute("employeeId").toString());
+				String firstname = session.getAttribute("firstname").toString();
+				String lastname = session.getAttribute("lastname").toString();
+				String title = session.getAttribute("title").toString();
+				System.out.println(session.getAttribute("lastname"));
+				Employees u = new Employees(userId, firstname, lastname, title);
+				response.getWriter().write((new ObjectMapper()).writeValueAsString(u));
+				System.out.println(session + "SESSION SERVLET1");
 			} catch (Exception e) {
 				e.printStackTrace();
 				response.getWriter().write("{\"session\":null}");
-				System.out.println("Is this what you really wanted in life?");
+				System.out.println(session + "SESSION SERVLET2");
 			}
 		} else {
 			response.getWriter().write("{\"session\":null}");
+			System.out.println(session + "SESSION SERVLET3");
 		}
-	}
 		
-
+	}
 	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse

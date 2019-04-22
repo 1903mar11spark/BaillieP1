@@ -28,16 +28,21 @@ public class M_ManagerServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("M_Homepage.html").forward(request, response);
-	}
+    	request.getRequestDispatcher("M_Homepage.html").forward(request, response);
+    	HttpSession session = request.getSession(false);
+    	System.out.println(session);
+    	int employeeId = (int)session.getAttribute("employeeId");
+    	System.out.println(employeeId + "manager page");
+    }
+		
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(false);
 		
-		
+		doGet(request, response);
 	}
 
 }

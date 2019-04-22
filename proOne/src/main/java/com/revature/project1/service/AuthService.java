@@ -25,7 +25,7 @@ public class AuthService {
 				int employeeId = erd.getLogin(username, password);
 				if (employeeId != 0) {
 					emp = erd.getEmployeeInfo(employeeId);
-					//System.out.println(emp + "from auth service ");
+					System.out.println(emp + "from auth service ");
 				} 
 				return emp;
 			}
