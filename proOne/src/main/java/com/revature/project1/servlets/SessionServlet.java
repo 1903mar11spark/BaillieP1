@@ -30,17 +30,20 @@ public class SessionServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(false);
 		if (session != null && session.getAttribute("employeeId") != null) {
 			try {
 				int userId = Integer.parseInt(session.getAttribute("employeeId").toString());
 				String firstname = session.getAttribute("firstname").toString();
 				String lastname = session.getAttribute("lastname").toString();
 				String title = session.getAttribute("title").toString();
-				System.out.println(session.getAttribute("lastname"));
+				System.out.println(session.getAttribute("lastname")+"here we are");
 				Employees u = new Employees(userId, firstname, lastname, title);
-				response.getWriter().write((new ObjectMapper()).writeValueAsString(u));
-				System.out.println(session + "SESSION SERVLET1");
+				System.out.println(u);
+				String resp = new ObjectMapper().writeValueAsString(u);
+				response.getWriter().write(resp);
+				
+				System.out.println(resp + "servelt session 1");
 			} catch (Exception e) {
 				e.printStackTrace();
 				response.getWriter().write("{\"session\":null}");

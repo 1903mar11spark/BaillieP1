@@ -282,6 +282,7 @@ public class EmpReqDaoImp implements EmpReqDao {
 				pstmt.setString(1, username);
 				pstmt.setString(2, password);
 				ResultSet rs = pstmt.executeQuery();
+				
 				if(rs.next()) {
 					int empId = rs.getInt("EMPLOYEE_ID");
 					System.out.println("Your emp from dao is" + empId);

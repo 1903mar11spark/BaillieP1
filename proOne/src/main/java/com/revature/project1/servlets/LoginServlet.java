@@ -43,6 +43,8 @@ public class LoginServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setMaxInactiveInterval(5*60); //ho ho getting it to go out in 5 min
 		System.out.println(session.getId());
+		
+		
 		Login login = new Login(request.getParameter("username"), request.getParameter("password"));
 		Employees emp = as.isValidUser(login);
 		
