@@ -41,8 +41,8 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		session.setMaxInactiveInterval(5*60); //ho ho getting it to go out in 5 min
-		System.out.println(session.getId());
+		//session.setMaxInactiveInterval(5*60); //ho ho getting it to go out in 5 min
+		System.out.println(session.getId()+"lgin");
 		
 		
 		Login login = new Login(request.getParameter("username"), request.getParameter("password"));
@@ -52,37 +52,41 @@ public class LoginServlet extends HttpServlet {
 				String title = emp.getTitle();
 				session.setAttribute("employeeId", emp.getEmployeeId());
 				session.setAttribute("firstname", emp.getFirstName());
-				session.setAttribute("lastname", emp.getLastName());
+				session.setAttribute("lastName", emp.getLastName());
 				session.setAttribute("title", emp.getTitle());
-				session.setAttribute("reportsTo", emp.getReportsTo());
-				//System.out.println("so help me, you better work" + title )
+				session.setAttribute("email", emp.getEmail());
+//				session.setAttribute("manager", emp.getManager());
+//				session.setAttribute("reportsTo", emp.getReportsTo());
+				System.out.println("so help me, you better work" + title);
 			if (title != "" ) {
 				if(title.equals("TEMP")) {
 					//System.out.println(title);
 					session.setAttribute("employeeId", emp.getEmployeeId());
 					session.setAttribute("firstname", emp.getFirstName());
-					session.setAttribute("lastname", emp.getLastName());
+					session.setAttribute("lastName", emp.getLastName());
 					session.setAttribute("title", emp.getTitle());
+					session.setAttribute("email", emp.getEmail());
 					session.setAttribute("reportsTo", emp.getReportsTo());
 					response.sendRedirect("employeehome");//url pattern
-				}else {
-					//System.out.println("This was suppose to be for managers");
+					}else {
 					session.setAttribute("employeeId", emp.getEmployeeId());
-					session.setAttribute("firstname", emp.getFirstName());
-					session.setAttribute("lastname", emp.getLastName());
+					session.setAttribute("firstName", emp.getFirstName());
+					session.setAttribute("lastName", emp.getLastName());
 					session.setAttribute("title", emp.getTitle());
-					session.setAttribute("reportsTo", emp.getReportsTo());
+					session.setAttribute("email", emp.getEmail());
+//					session.setAttribute("reportsTo", emp.getReportsTo());
 					response.sendRedirect("ManagerHome");
+					}
 				}
-			}else if(title == null){
-				response.sendRedirect("Login");
+		}else {
+				response.sendRedirect("login");
 				//check file path
 			}
 		}
 	}
 	
    
-}
+
 
 
 		

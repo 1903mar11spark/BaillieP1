@@ -38,12 +38,15 @@ public class SessionServlet extends HttpServlet {
 				String lastname = session.getAttribute("lastname").toString();
 				String title = session.getAttribute("title").toString();
 				System.out.println(session.getAttribute("lastname")+"here we are");
+				
 				Employees u = new Employees(userId, firstname, lastname, title);
 				System.out.println(u);
+				
 				String resp = new ObjectMapper().writeValueAsString(u);
 				response.getWriter().write(resp);
 				
 				System.out.println(resp + "servelt session 1");
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 				response.getWriter().write("{\"session\":null}");
